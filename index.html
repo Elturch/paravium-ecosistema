@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PARAVIUM × REAL MADRID CF · Ecosistema</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  font-family:'Segoe UI',system-ui,sans-serif;
+  background:#080c18;
+  color:#e8eaf6;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* ── HEADER ───────────────────────────────── */
+.header{
+  text-align:center;
+  padding:36px 20px 12px;
+  position:relative;
+}
+.header-eyebrow{
+  font-size:.7rem;
+  letter-spacing:.18em;
+  color:#5a6080;
+  text-transform:uppercase;
+  margin-bottom:10px;
+}
+.header h1{
+  font-size:1.75rem;
+  font-weight:800;
+  letter-spacing:.04em;
+  background:linear-gradient(135deg,#e0c97a,#ffffff,#c8a850);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.header h1 span{
+  background:linear-gradient(135deg,#7c6fff,#48cae4);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.header-date{
+  font-size:.68rem;
+  color:#3d4468;
+  margin-top:6px;
+  letter-spacing:.06em;
+}
+.hint{
+  text-align:center;
+  color:#3d4468;
+  font-size:.7rem;
+  padding:6px;
+  letter-spacing:.05em;
+}
+.hint span{animation:pulse 2.5s infinite}
+@keyframes pulse{0%,100%{opacity:.3}50%{opacity:.9}}
+
+/* ── TOGGLES WRAP ──────────────────────────── */
+.toggles-wrap{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  padding:10px 0 4px;
+  flex-wrap:wrap;
+}
+
+/* ── PILOTO TOGGLE ─────────────────────────── */
+.piloto-toggle{
+  background:linear-gradient(135deg,#050f20,#0a1a38);
+  border:1.5px solid #3a6aaa55;
+  color:#5a9ae0;
+  font-size:.72rem;
+  font-weight:700;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  padding:8px 20px;
+  border-radius:30px;
+  cursor:pointer;
+  transition:all .25s;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.piloto-toggle:hover{border-color:#5a9ae0;box-shadow:0 0 20px #3a6aaa33}
+.piloto-toggle.active{
+  background:linear-gradient(135deg,#0a1a38,#102a58);
+  border-color:#5a9ae0;
+  box-shadow:0 0 30px #3a6aaa55;
+  color:#90c0f8;
+}
+.piloto-dot{
+  width:8px;height:8px;
+  border-radius:50%;
+  background:#3a6aaa44;
+  transition:all .25s;
+}
+.piloto-toggle.active .piloto-dot{background:#90c0f8;box-shadow:0 0 8px #90c0f8}
+
+/* Piloto active banner */
+.piloto-banner{
+  display:none;
+  background:linear-gradient(90deg,#05101e33,#0a1a3866,#05101e33);
+  border:1px solid #3a6aaa44;
+  border-radius:10px;
+  margin:4px auto;
+  max-width:900px;
+  padding:8px 20px;
+  text-align:center;
+  font-size:.72rem;
+  color:#6aaaf0;
+  letter-spacing:.04em;
+}
+.piloto-banner.active{display:block}
+
+/* Piloto glow for nodes */
+.piloto-glow{
+  border-color:#5a9ae0 !important;
+  box-shadow:0 0 25px #3a6aaa55,0 0 60px #3a6aaa22 !important;
+}
+
+/* ── STADIO INFINITO TOGGLE ────────────────── */
+.ei-toggle{
+  background:linear-gradient(135deg,#1a1500,#2d2200);
+  border:1.5px solid #c8a85055;
+  color:#c8a850;
+  font-size:.72rem;
+  font-weight:700;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  padding:8px 20px;
+  border-radius:30px;
+  cursor:pointer;
+  transition:all .25s;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.ei-toggle:hover{border-color:#c8a850;box-shadow:0 0 20px #c8a85033}
+.ei-toggle.active{
+  background:linear-gradient(135deg,#2d2200,#4a3800);
+  border-color:#c8a850;
+  box-shadow:0 0 30px #c8a85055;
+  color:#f5d98a;
+}
+.ei-dot{
+  width:8px;height:8px;
+  border-radius:50%;
+  background:#c8a85044;
+  transition:all .25s;
+}
+.ei-toggle.active .ei-dot{background:#f5d98a;box-shadow:0 0 8px #f5d98a}
+
+/* EI active banner */
+.ei-banner{
+  display:none;
+  background:linear-gradient(90deg,#1a140033,#2d220066,#1a140033);
+  border:1px solid #c8a85033;
+  border-radius:10px;
+  margin:4px auto;
+  max-width:900px;
+  padding:8px 20px;
+  text-align:center;
+  font-size:.72rem;
+  color:#c8a850;
+  letter-spacing:.04em;
+}
+.ei-banner.active{display:block}
+
+/* ── MAIN DIAGRAM ──────────────────────────── */
+.diagram{
+  max-width:1000px;
+  margin:0 auto;
+  padding:0 16px 20px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:0;
+}
+
+/* ── ARROWS ────────────────────────────────── */
+.arrow-v{
+  height:36px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-end;
+  width:100%;
+}
+.arrow-v::before{
+  content:'';
+  display:block;
+  width:2px;
+  height:26px;
+  background:linear-gradient(to bottom,#2a3060,#4a5090);
+}
+.arrow-v::after{
+  content:'';
+  width:0;height:0;
+  border-left:6px solid transparent;
+  border-right:6px solid transparent;
+  border-top:8px solid #4a5090;
+}
+
+/* ── NODES ─────────────────────────────────── */
+.node{
+  border-radius:12px;
+  padding:14px 18px;
+  cursor:pointer;
+  transition:transform .2s,box-shadow .2s,border-color .3s;
+  border:1.5px solid transparent;
+  position:relative;
+  user-select:none;
+  text-align:center;
+}
+.node:hover{
+  transform:translateY(-3px);
+  box-shadow:0 14px 40px rgba(100,100,255,.22);
+}
+.node-icon{font-size:1.5rem;margin-bottom:5px;display:block}
+.node-title{
+  font-size:.76rem;
+  font-weight:700;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  margin-bottom:3px;
+  line-height:1.3;
+}
+.node-sub{font-size:.68rem;color:#7a84a0;line-height:1.35}
+
+/* ── PHASE BADGES ──────────────────────────── */
+.badge{
+  position:absolute;
+  top:-9px;
+  right:-6px;
+  font-size:.58rem;
+  font-weight:800;
+  padding:2px 8px;
+  border-radius:20px;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+.badge-piloto{background:#1a3a6e;color:#7eb8f7;border:1px solid #2a5aaa}
+.badge-star{background:#1a3a6e;color:#7eb8f7;border:1px solid #2a5aaa}
+.badge-f1{background:#2d1a5a;color:#b088f7;border:1px solid #5a3aaa}
+.badge-f2{background:#3a1a00;color:#f7a860;border:1px solid #aa5a00}
+.badge-ext{background:#1a1e2a;color:#6a7090;border:1px solid #2a2e40}
+.badge-nucleo{background:#1e0a3a;color:#c088f7;border:1px solid #5a1aaa}
+
+/* ── NODE COLORS ────────────────────────────── */
+.n-fans{background:linear-gradient(135deg,#111628,#181e38);border-color:#2d3560}
+.n-escucha{background:linear-gradient(135deg,#150a30,#220f50);border-color:#6c63ff}
+.n-dmp{background:linear-gradient(135deg,#081830,#0c2448);border-color:#48cae4}
+.n-parati{background:linear-gradient(135deg,#180828,#280c48);border-color:#a855f7}
+.n-prescripcion{background:linear-gradient(135deg,#081f10,#0d3018);border-color:#22c55e}
+.n-jugadores{background:linear-gradient(135deg,#1a1200,#2d1e00);border-color:#5a4a20}
+.n-ssp{background:linear-gradient(135deg,#1f0c00,#381500);border-color:#f97316}
+.n-exportacion{background:linear-gradient(135deg,#001a10,#003020);border-color:#3a5a48}
+.n-modeloA{background:linear-gradient(135deg,#1f0010,#380020);border-color:#ec4899}
+.n-modeloB{background:linear-gradient(135deg,#0a0a1f,#121230);border-color:#4a4aaa}
+
+/* EI GLOW (activated by JS) */
+.ei-glow{
+  border-color:#c8a850 !important;
+  box-shadow:0 0 25px #c8a85044,0 0 60px #c8a85022 !important;
+}
+
+/* ── ROWS ───────────────────────────────────── */
+.row{
+  display:flex;
+  justify-content:center;
+  width:100%;
+}
+.row-3{
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  width:100%;
+}
+.row-3 .node{flex:1;max-width:280px}
+.row-2{
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  width:100%;
+}
+.row-2 .node{flex:1;max-width:360px}
+
+/* PILOTO ZONE LABEL */
+.zone-label{
+  font-size:.6rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  padding:3px 14px;
+  border-radius:20px;
+  display:inline-block;
+  margin:0 auto;
+}
+.zone-piloto-label{
+  background:#0d1a30;
+  color:#4a80c8;
+  border:1px solid #2a4a7a;
+}
+
+/* ── SPLIT ARROW FOR 3 COLS ─────────────────── */
+.split3{
+  position:relative;
+  width:100%;
+  max-width:760px;
+  height:32px;
+  margin:0 auto;
+}
+.split3 .h-line{
+  position:absolute;top:0;
+  height:2px;background:#2a3060;
+  left:16.5%;right:16.5%;
+}
+.split3 .v-line{
+  position:absolute;top:0;
+  width:2px;
+  background:linear-gradient(to bottom,#2a3060,#4a5090);
+  height:32px;
+}
+.split3 .v-tip{
+  position:absolute;bottom:0;
+  width:0;height:0;
+  border-left:5px solid transparent;
+  border-right:5px solid transparent;
+  border-top:7px solid #4a5090;
+  transform:translateX(-50%);
+}
+
+.split2{
+  position:relative;
+  width:100%;
+  max-width:720px;
+  height:32px;
+  margin:0 auto;
+}
+.split2 .h-line{
+  position:absolute;top:0;
+  height:2px;background:#2a3060;
+  left:25%;right:25%;
+}
+.split2 .v-line{
+  position:absolute;top:0;
+  width:2px;
+  background:linear-gradient(to bottom,#2a3060,#4a5090);
+  height:32px;
+}
+.split2 .v-tip{
+  position:absolute;bottom:0;
+  width:0;height:0;
+  border-left:5px solid transparent;
+  border-right:5px solid transparent;
+  border-top:7px solid #4a5090;
+  transform:translateX(-50%);
+}
+
+/* ── CAPA TRANSVERSAL ───────────────────────── */
+.transversal-wrap{
+  width:100%;
+  max-width:1000px;
+  margin:20px auto 0;
+  padding:0 16px;
+}
+.transversal-connector{
+  display:flex;
+  justify-content:space-around;
+  max-width:880px;
+  margin:0 auto 0;
+  height:28px;
+}
+.transversal-connector-line{
+  width:2px;
+  height:28px;
+  background:linear-gradient(to bottom,#4a1020,#8B1A2B);
+  margin:0 auto;
+  opacity:.6;
+}
+.transversal-box{
+  background:linear-gradient(135deg,#150508,#220a10);
+  border:1.5px solid #8B1A2B;
+  border-radius:12px;
+  padding:14px 20px;
+  cursor:pointer;
+}
+.transversal-box:hover{
+  border-color:#c0303a;
+  transform:translateY(-2px);
+  transition:all .2s;
+}
+.transversal-header{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:12px;
+}
+.transversal-icon{font-size:1.3rem}
+.transversal-title{
+  font-size:.8rem;
+  font-weight:700;
+  color:#e8a0a8;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+.transversal-dims{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.dim-card{
+  flex:1;min-width:130px;
+  background:#1a080c;
+  border:1px solid #3a1a20;
+  border-radius:8px;
+  padding:10px 12px;
+  cursor:pointer;
+  transition:all .2s;
+}
+.dim-card:hover{border-color:#8B1A2B;background:#220a10}
+.dim-title{
+  font-size:.68rem;
+  font-weight:700;
+  color:#e8a0a8;
+  margin-bottom:4px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.dim-sub{font-size:.62rem;color:#6a4050;line-height:1.3}
+.dim-badge{
+  font-size:.54rem;
+  font-weight:700;
+  padding:1px 6px;
+  border-radius:10px;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+  flex-shrink:0;
+}
+.dim-badge-piloto{background:#1a3060;color:#6a9ae0}
+.dim-badge-prog{background:#1a1a1a;color:#4a4a6a}
+
+/* ── COMUNIDAD GAMIFICADA ───────────────────── */
+.gamificada-wrap{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:16px;
+  margin:20px auto;
+  max-width:700px;
+  padding:0 16px;
+}
+.loop-arrow{
+  font-size:2rem;
+  color:#22c55e44;
+}
+.gamificada-box{
+  background:linear-gradient(135deg,#051508,#0a2510);
+  border:1.5px dashed #22c55e55;
+  border-radius:12px;
+  padding:14px 20px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  transition:all .2s;
+  flex:1;
+  max-width:500px;
+}
+.gamificada-box:hover{border-color:#22c55e;box-shadow:0 0 20px #22c55e22}
+.gamificada-icon{font-size:1.6rem}
+.gamificada-title{
+  font-size:.76rem;
+  font-weight:700;
+  color:#86efac;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  margin-bottom:3px;
+}
+.gamificada-sub{font-size:.65rem;color:#3a6a44}
+.gamificada-badge{
+  font-size:.58rem;
+  font-weight:700;
+  padding:2px 8px;
+  border-radius:12px;
+  background:#051a08;
+  color:#22c55e88;
+  border:1px solid #22c55e33;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  margin-top:5px;
+  display:inline-block;
+}
+
+/* ── LEGEND ─────────────────────────────────── */
+.legend{
+  max-width:900px;
+  margin:24px auto 0;
+  padding:16px 20px;
+  background:#0c1020;
+  border-radius:12px;
+  border:1px solid #1a2040;
+}
+.legend-title{
+  font-size:.62rem;
+  color:#3a4060;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  margin-bottom:12px;
+}
+.legend-grid{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px 20px;
+}
+.legend-item{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  font-size:.68rem;
+  color:#6a7090;
+}
+.legend-pill{
+  font-size:.58rem;
+  font-weight:700;
+  padding:2px 8px;
+  border-radius:10px;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+}
+
+/* ── ARCHITECTURE NOTE ──────────────────────── */
+.arch-note{
+  max-width:900px;
+  margin:16px auto 40px;
+  padding:12px 20px;
+  background:#0a0c18;
+  border:1px solid #1a1e30;
+  border-radius:10px;
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+}
+.arch-icon{font-size:1rem;color:#3a4060;flex-shrink:0;margin-top:2px}
+.arch-text{font-size:.68rem;color:#3a4060;line-height:1.6;letter-spacing:.02em}
+.arch-text strong{color:#4a5080}
+
+/* ── MODAL ──────────────────────────────────── */
+.overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.8);
+  z-index:1000;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  backdrop-filter:blur(6px);
+}
+.overlay.on{display:flex}
+.modal{
+  background:#0d1020;
+  border-radius:18px;
+  padding:28px 32px;
+  max-width:560px;
+  width:100%;
+  border:1px solid #202540;
+  box-shadow:0 40px 100px rgba(0,0,0,.7);
+  position:relative;
+  animation:mIn .2s ease;
+  max-height:85vh;
+  overflow-y:auto;
+}
+@keyframes mIn{from{transform:scale(.96) translateY(8px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
+.modal-x{
+  position:absolute;top:14px;right:18px;
+  font-size:1.3rem;cursor:pointer;
+  color:#4a5070;transition:color .2s;
+  line-height:1;
+}
+.modal-x:hover{color:#e8eaf6}
+.m-icon{font-size:2rem;margin-bottom:10px}
+.m-phase{
+  display:inline-block;
+  font-size:.6rem;font-weight:700;
+  padding:2px 10px;border-radius:12px;
+  text-transform:uppercase;letter-spacing:.07em;
+  margin-bottom:12px;
+}
+.m-title{font-size:1rem;font-weight:700;color:#e8eaf6;margin-bottom:14px;line-height:1.3}
+.m-body{font-size:.84rem;line-height:1.7;color:#8090b0}
+.m-body strong{color:#c8d0e8}
+.m-body .tag{
+  display:inline-block;
+  padding:2px 9px;border-radius:14px;
+  font-size:.68rem;font-weight:700;
+  margin:3px 2px;text-transform:uppercase;letter-spacing:.04em;
+}
+.tag-b{background:#0d2040;color:#60a0e0;border:1px solid #1a3a6a}
+.tag-p{background:#200a40;color:#a060e0;border:1px solid #3a1a6a}
+.tag-g{background:#0a200f;color:#60d080;border:1px solid #1a4a2a}
+.tag-o{background:#200a00;color:#e09040;border:1px solid #4a2a00}
+.tag-r{background:#200a0f;color:#e06070;border:1px solid #4a1a20}
+.tag-y{background:#1a1500;color:#d0b040;border:1px solid #4a4000}
+.m-metric{
+  background:#0a0e1a;
+  border:1px solid #1a2040;
+  border-radius:10px;
+  padding:12px 16px;
+  margin:14px 0;
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+}
+.metric-item{text-align:center;flex:1;min-width:80px}
+.metric-val{font-size:1.1rem;font-weight:800;color:#e8eaf6}
+.metric-lbl{font-size:.6rem;color:#4a5070;text-transform:uppercase;letter-spacing:.06em}
+
+/* ── RESPONSIVE ─────────────────────────────── */
+@media(max-width:640px){
+  .row-3{flex-direction:column;align-items:center}
+  .row-3 .node{max-width:100%;width:100%}
+  .row-2{flex-direction:column;align-items:center}
+  .row-2 .node{max-width:100%;width:100%}
+  .transversal-dims{flex-direction:column}
+  .header h1{font-size:1.3rem}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-eyebrow">Ecosistema de Datos y Monetización</div>
+  <h1><span>PARAVIUM</span> × REAL MADRID CF</h1>
+  <div class="header-date">Versión: Marzo 2026 · Confidencial</div>
+</div>
+
+<p class="hint"><span>▼ Pulsa cualquier bloque para ver la explicación completa ▼</span></p>
+
+<!-- TOGGLES -->
+<div class="toggles-wrap">
+  <button class="piloto-toggle" id="pilotoToggle" onclick="togglePiloto()">
+    <div class="piloto-dot"></div>
+    ★ Activar modo Piloto 90 días
+  </button>
+  <button class="ei-toggle" id="eiToggle" onclick="toggleEI()">
+    <div class="ei-dot" id="eiDot"></div>
+    ⚡ Activar modo Estadio Infinito
+  </button>
+</div>
+<div class="piloto-banner" id="pilotoBanner">
+  ★ PILOTO 90 DÍAS ACTIVO — Escucha Activa + DMP v1 + Para Ti · ~20M perfiles accionables · 0€ coste para el club · Revenue share desde el día uno · ~574K€/trimestre estimados
+</div>
+<div class="ei-banner" id="eiBanner">
+  ⚡ ESTADIO INFINITO ACTIVO — El ecosistema en su momento de máximo rendimiento · 27 partidos en casa · ~10,4M€/año estimados
+</div>
+
+<!-- DIAGRAM -->
+<div class="diagram">
+
+  <!-- FANS -->
+  <div class="row">
+    <div class="node n-fans" style="min-width:300px;max-width:480px;width:100%" onclick="openModal('fans')">
+      <span class="node-icon">⚽</span>
+      <div class="node-title">Millones de Fans · Madridistas · EA Sports FC</div>
+      <div class="node-sub">App · Web · Estadio · Tienda · Redes Sociales · Programa de Socios</div>
+    </div>
+  </div>
+
+  <div class="arrow-v"></div>
+
+  <!-- ZONE LABEL -->
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px">
+    <div style="height:1px;width:60px;background:#1a3060"></div>
+    <span class="zone-label zone-piloto-label">★ Scope del Piloto 90 Días</span>
+    <div style="height:1px;width:60px;background:#1a3060"></div>
+  </div>
+
+  <!-- ESCUCHA ACTIVA -->
+  <div class="row">
+    <div class="node n-escucha" id="n-escucha" style="min-width:300px;max-width:480px;width:100%" onclick="openModal('escucha')">
+      <div class="badge badge-piloto">● Piloto</div>
+      <div class="badge badge-nucleo" style="right:auto;left:-6px">NÚCLEO</div>
+      <span class="node-icon">🎧</span>
+      <div class="node-title">Paravium · Escucha Activa</div>
+      <div class="node-sub">Social listening en tiempo real · Estado emocional del ecosistema · Canales del club + sponsors + afines</div>
+    </div>
+  </div>
+
+  <div class="arrow-v"></div>
+
+  <!-- DMP -->
+  <div class="row">
+    <div class="node n-dmp" id="n-dmp" style="min-width:300px;max-width:480px;width:100%" onclick="openModal('dmp')">
+      <div class="badge badge-piloto">● Piloto · DMP v1</div>
+      <span class="node-icon">🧠</span>
+      <div class="node-title">DMP · El Cerebro</div>
+      <div class="node-sub">~20M perfiles accionables · Gemelos digitales Madridistas + EA Sports FC · Segmentos en tiempo real</div>
+    </div>
+  </div>
+
+  <!-- SPLIT 3 -->
+  <div class="split3">
+    <div class="h-line"></div>
+    <div class="v-line" style="left:16.5%"></div>
+    <div class="v-line" style="left:50%"></div>
+    <div class="v-line" style="right:16.5%;left:auto"></div>
+    <div class="v-tip" style="left:16.5%"></div>
+    <div class="v-tip" style="left:50%"></div>
+    <div class="v-tip" style="right:16.5%;left:auto;transform:translateX(50%)"></div>
+  </div>
+
+  <!-- 3 CHANNELS -->
+  <div class="row-3" style="max-width:860px;margin:0 auto">
+
+    <div class="node n-parati" id="n-parati" onclick="openModal('parati')">
+      <div class="badge badge-star">★ Piloto 90D</div>
+      <span class="node-icon">📱</span>
+      <div class="node-title">Para Ti · Distribución en Redes</div>
+      <div class="node-sub">TikTok · Instagram · Alcance a fans y no-fans a través del algoritmo</div>
+    </div>
+
+    <div class="node n-prescripcion" id="n-prescripcion" onclick="openModal('prescripcion')">
+      <div class="badge badge-f1">Fase 1</div>
+      <span class="node-icon">📡</span>
+      <div class="node-title">Prescripción Orgánica</div>
+      <div class="node-sub">Contenido orgánico con mensajes de sponsors integrados · El club cobra como influencer</div>
+    </div>
+
+    <div class="node n-jugadores" onclick="openModal('jugadores')">
+      <div class="badge badge-ext">Extensión</div>
+      <span class="node-icon">⚽</span>
+      <div class="node-title">Ecosistema Jugadores</div>
+      <div class="node-sub">Add-on opcional · Activos, retirados, ex-jugadores en otros clubs</div>
+    </div>
+
+  </div>
+
+  <!-- SPLIT 2 -->
+  <div class="split2" style="max-width:620px">
+    <div class="h-line" style="left:14%;right:14%"></div>
+    <div class="v-line" style="left:14%"></div>
+    <div class="v-line" style="right:14%;left:auto"></div>
+    <div class="v-tip" style="left:14%"></div>
+    <div class="v-tip" style="right:14%;left:auto;transform:translateX(50%)"></div>
+  </div>
+
+  <!-- SSP + EXPORTACION -->
+  <div class="row-2" style="max-width:720px;margin:0 auto">
+
+    <div class="node n-ssp" id="n-ssp" onclick="openModal('ssp')">
+      <div class="badge badge-f2">Fase 2</div>
+      <span class="node-icon">🏷️</span>
+      <div class="node-title">SSP · Canales Propios</div>
+      <div class="node-sub">App + Web + Video como taquilla digital · RTB en tiempo real</div>
+    </div>
+
+    <div class="node n-exportacion" onclick="openModal('exportacion')">
+      <div class="badge badge-ext">Extensión</div>
+      <span class="node-icon">🌐</span>
+      <div class="node-title">Exportación Programática Global</div>
+      <div class="node-sub">Audiencias del DMP en cualquier web del mundo · LiveRamp · DV360 · TTD</div>
+    </div>
+
+  </div>
+
+  <!-- SPLIT 2 MODELOS -->
+  <div class="split2" style="max-width:560px">
+    <div class="h-line" style="left:16%;right:16%"></div>
+    <div class="v-line" style="left:16%"></div>
+    <div class="v-line" style="right:16%;left:auto"></div>
+    <div class="v-tip" style="left:16%"></div>
+    <div class="v-tip" style="right:16%;left:auto;transform:translateX(50%)"></div>
+  </div>
+
+  <!-- MODELOS A + B -->
+  <div class="row-2" style="max-width:680px;margin:0 auto">
+
+    <div class="node n-modeloA" onclick="openModal('modeloA')">
+      <span class="node-icon">🤝</span>
+      <div class="node-title">Modelo A · Sponsor Directo</div>
+      <div class="node-sub">Sin intermediarios · Máximo margen · Tres tipos de acceso simultáneo</div>
+    </div>
+
+    <div class="node n-modeloB" onclick="openModal('modeloB')">
+      <span class="node-icon">📊</span>
+      <div class="node-title">Modelo B · RTB Global</div>
+      <div class="node-sub">Cualquier anunciante del mundo · Data licensing · Revenue share</div>
+    </div>
+
+  </div>
+
+</div><!-- /diagram -->
+
+<!-- CAPA TRANSVERSAL -->
+<div class="transversal-wrap">
+  <div style="text-align:center;margin-bottom:6px">
+    <div style="display:flex;align-items:center;justify-content:center;gap:12px">
+      <div style="height:1px;width:80px;background:#3a1020"></div>
+      <span style="font-size:.62rem;color:#8B1A2B;letter-spacing:.12em;text-transform:uppercase;font-weight:700">↑ Sistema de Protección y Retención ↑</span>
+      <div style="height:1px;width:80px;background:#3a1020"></div>
+    </div>
+  </div>
+
+  <div class="transversal-box" onclick="openModal('transversal')">
+    <div class="transversal-header">
+      <span class="transversal-icon">🔴</span>
+      <div class="transversal-title">Capa Transversal · Retención + Inteligencia</div>
+      <div style="margin-left:auto;font-size:.65rem;color:#8B1A2B;font-weight:700">Objetivo: churn 37% → 15%</div>
+    </div>
+    <div class="transversal-dims">
+
+      <div class="dim-card" onclick="event.stopPropagation();openModal('dim1')">
+        <div class="dim-title">
+          <span>1. Predicción de Churn</span>
+          <span class="dim-badge dim-badge-piloto">En Piloto</span>
+        </div>
+        <div class="dim-sub">ML que predice cancelaciones 15–21 días antes</div>
+      </div>
+
+      <div class="dim-card" onclick="event.stopPropagation();openModal('dim2')">
+        <div class="dim-title">
+          <span>2. Diagnóstico de Causas</span>
+          <span class="dim-badge dim-badge-piloto">En Piloto</span>
+        </div>
+        <div class="dim-sub">Por qué se van: precio, contenido, inactividad, fatiga</div>
+      </div>
+
+      <div class="dim-card" onclick="event.stopPropagation();openModal('dim3')">
+        <div class="dim-title">
+          <span>3. Optimización de Cobro</span>
+          <span class="dim-badge dim-badge-prog">Progresivo</span>
+        </div>
+        <div class="dim-sub">Smart retry · gestión inteligente de dunning</div>
+      </div>
+
+      <div class="dim-card" onclick="event.stopPropagation();openModal('dim4')">
+        <div class="dim-title">
+          <span>4. Intervención Personalizada</span>
+          <span class="dim-badge dim-badge-prog">Progresivo</span>
+        </div>
+        <div class="dim-sub">Ofertas calibradas por segmento y momento</div>
+      </div>
+
+      <div class="dim-card" onclick="event.stopPropagation();openModal('dim5')">
+        <div class="dim-title">
+          <span>5. CLV Scoring</span>
+          <span class="dim-badge dim-badge-prog">Progresivo</span>
+        </div>
+        <div class="dim-sub">Valor de vida por fan · cuánto invertir en retener</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- COMUNIDAD GAMIFICADA -->
+<div class="gamificada-wrap">
+  <div style="font-size:1.5rem;color:#22c55e33;transform:rotate(180deg)">↩</div>
+  <div class="gamificada-box" onclick="openModal('gamificada')">
+    <div class="gamificada-icon">🎮</div>
+    <div>
+      <div class="gamificada-title">Comunidad Gamificada · ×2x base activa</div>
+      <div class="gamificada-sub">Misiones · coleccionables · geolocalización · rankings · Loop que retroalimenta el DMP</div>
+      <span class="gamificada-badge">Horizonte 24–36 meses</span>
+    </div>
+  </div>
+  <div style="font-size:1.5rem;color:#22c55e33">↩</div>
+</div>
+
+<!-- LEGEND -->
+<div class="legend" style="max-width:900px;margin:16px auto 0;padding:16px 20px">
+  <div class="legend-title">Fases de ejecución</div>
+  <div class="legend-grid">
+    <div class="legend-item">
+      <span class="legend-pill badge-piloto">● Piloto</span>
+      <span>Mes 0–3 · 0€ coste · Revenue share</span>
+    </div>
+    <div class="legend-item">
+      <span class="legend-pill badge-f1">Fase 1</span>
+      <span>Mes 3–12 · DMP ampliado + Canal</span>
+    </div>
+    <div class="legend-item">
+      <span class="legend-pill badge-f2">Fase 2</span>
+      <span>Mes 12–24 · SSP + Modelo A</span>
+    </div>
+    <div class="legend-item">
+      <span class="legend-pill badge-ext">Extensión</span>
+      <span>On demand · activación cuando el Core esté listo</span>
+    </div>
+    <div class="legend-item">
+      <span style="font-size:.72rem">⚡</span>
+      <span>Estadio Infinito · modo partido · activable desde Fase 1</span>
+    </div>
+    <div class="legend-item">
+      <span style="color:#22c55e;font-size:.8rem">⟳</span>
+      <span>Comunidad Gamificada · horizonte 24–36m · amplificador del ciclo</span>
+    </div>
+  </div>
+</div>
+
+<!-- ARCHITECTURE NOTE -->
+<div class="arch-note" style="max-width:900px;margin:12px auto 40px">
+  <div class="arch-icon">⊘</div>
+  <div class="arch-text">
+    <strong>Arquitectura "Capa Cebolla"</strong> — Todo el ecosistema Paravium opera como capa paralela al sistema actual del club. Conectada al legacy como fuente de datos, pero con toda la lógica en infraestructura propia. Progresivamente absorbe funciones. Cero disrupción operativa. El departamento de comunicación mantiene el control total de los canales editoriales del club. Paravium opera en el ecosistema de distribución, no en la voz del club.
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay" onclick="closeOutside(event)">
+  <div class="modal" id="modalBox">
+    <span class="modal-x" onclick="closeModal()">✕</span>
+    <div class="m-icon" id="mIcon"></div>
+    <div id="mPhase"></div>
+    <div class="m-title" id="mTitle"></div>
+    <div class="m-body" id="mBody"></div>
+  </div>
+</div>
+
+<script>
+const D = {
+
+fans:{
+  icon:'⚽',phase:'',phaseClass:'',
+  title:'La materia prima: Madridistas, EA Sports FC y millones de fans',
+  body:`El activo más valioso del Real Madrid no es el Bernabéu ni los derechos televisivos. Son los datos de sus fans.
+<br><br>
+<div class="m-metric">
+  <div class="metric-item"><div class="metric-val">~1.000M</div><div class="metric-lbl">Fans globales estimados</div></div>
+  <div class="metric-item"><div class="metric-val">~20M</div><div class="metric-lbl">Perfiles accionables (piloto)</div></div>
+  <div class="metric-item"><div class="metric-val">0€</div><div class="metric-lbl">Coste para el club</div></div>
+</div>
+<strong>Fuentes de datos del piloto:</strong><br>
+La base de <strong>Madridistas</strong> es el input central: registros verificados con historial de interacciones, compras y preferencias declaradas. Se complementa con la integración de <strong>EA Sports FC</strong>, que enriquece los perfiles con señales de comportamiento digital de una audiencia masiva con altísima afinidad con el club.
+<br><br>
+<span class="tag tag-b">Madridistas (socios)</span>
+<span class="tag tag-p">EA Sports FC</span>
+<span class="tag tag-g">App del club</span>
+<span class="tag tag-o">Estadio (geo)</span>
+<span class="tag tag-b">Tienda online</span>
+<span class="tag tag-p">Redes sociales</span>
+<br><br>
+Son <strong>datos de primera parte</strong> (first-party data): verificados, reales y consentidos. Con el fin de las cookies de terceros, quien tiene datos propios tiene el recurso más escaso del ecosistema publicitario global.`
+},
+
+escucha:{
+  icon:'🎧',phase:'PILOTO · Mes 0–3',phaseClass:'badge-piloto',
+  title:'Paravium · Escucha activa en tiempo real',
+  body:`Antes de mover ningún mensaje, <strong>Paravium escucha</strong>. Rastrea en tiempo real qué se está diciendo sobre el Real Madrid, sus jugadores, sus rivales y sus patrocinadores en TikTok, Instagram, X, YouTube, foros y medios deportivos.
+<br><br>
+Pero la escucha va más allá del universo del club: Paravium también analiza los <strong>canales de los sponsors y de cuentas afines</strong> para entender qué audiencias se mueven alrededor del ecosistema del Madrid — aunque esas personas todavía no sigan al club.
+<br><br>
+<strong>Señales que detecta:</strong><br>
+— Qué formatos generan mayor retención en contenidos afines<br>
+— Qué emociones dominan la conversación tras cada partido<br>
+— Qué audiencias del sponsor tienen afinidad con los Madridistas<br>
+— Qué perfil de persona, sin seguir al Madrid, consume contenido relacionado<br>
+— En qué momento y contexto está más receptiva cada tipología de usuario
+<br><br>
+El resultado no es una lista de posts. Es <strong>inteligencia de audiencia</strong>: saber exactamente qué mensaje, para quién y en qué momento tiene más probabilidad de impactar.`
+},
+
+dmp:{
+  icon:'🧠',phase:'PILOTO · DMP v1 · Mes 0–3',phaseClass:'badge-piloto',
+  title:'DMP · El cerebro del sistema',
+  body:`El <strong>DMP (Data Management Platform)</strong> es la plataforma que recoge, organiza, segmenta y activa datos de audiencias de forma continua y automatizada. No es una fotografía estática — es un sistema vivo que se actualiza solo.
+<br><br>
+<div class="m-metric">
+  <div class="metric-item"><div class="metric-val">~20M</div><div class="metric-lbl">Perfiles accionables (piloto)</div></div>
+  <div class="metric-item"><div class="metric-val">Real-time</div><div class="metric-lbl">Actualización</div></div>
+  <div class="metric-item"><div class="metric-val">v1 → v2</div><div class="metric-lbl">Evolución piloto→Fase 1</div></div>
+</div>
+<strong>DMP v1 (Piloto):</strong> construido sobre la base de Madridistas + enriquecimiento EA Sports FC. Genera los primeros segmentos accionables en semanas.<br><br>
+<strong>DMP v2 (Fase 1):</strong> se libera de la restricción de socios registrados. Empieza a perfilar fans en redes sociales que no son Madridistas — personas que consumen contenido del Madrid sin haber dado sus datos directamente.
+<br><br>
+<span class="tag tag-b">Madridistas</span>
+<span class="tag tag-p">EA Sports FC</span>
+<span class="tag tag-g">App (real-time)</span>
+<span class="tag tag-o">Tienda online</span>
+<span class="tag tag-b">Comportamiento RRSS</span>
+<br><br>
+El DMP es el activo más valioso que produce el ecosistema. La calidad de las integraciones de datos determina directamente el valor de los segmentos.`
+},
+
+parati:{
+  icon:'📱',phase:'★ PILOTO 90 DÍAS',phaseClass:'badge-star',
+  title:'Para Ti · Cómo Paravium llega a personas en las redes sociales',
+  body:`Este es el punto más importante del sistema y el que hay que entender correctamente.
+<br><br>
+<strong>Paravium no usa los canales del Madrid como altavoces.</strong> El departamento de comunicación mantiene el control total de su estrategia editorial. Lo que hace Paravium es operar en el ecosistema de distribución de la red social: <strong>mueve mensajes a través del algoritmo del Para Ti</strong> para que lleguen a la persona correcta en el momento preciso.
+<br><br>
+<strong>¿Cómo funciona el Para Ti?</strong><br>
+El algoritmo de TikTok (y Reels de Instagram) no distribuye contenido a los seguidores — lo distribuye a personas que <strong>no siguen</strong> la cuenta, basándose en señales de interés. El alcance de un mensaje no está limitado por la base de seguidores del Madrid: puede llegar a millones de personas que nunca han interactuado con el club pero tienen un perfil de intereses compatible.
+<br><br>
+<strong>Paravium calibra ese mecanismo desde tres fuentes:</strong><br>
+1. Analizando los canales del Madrid para entender qué genera retención en su audiencia conocida<br>
+2. Escuchando canales externos (sponsors, cuentas afines, rivales) para identificar audiencias con afinidad<br>
+3. Construyendo mensajes diseñados para resonar en perfiles concretos en el momento preciso
+<br><br>
+<span class="tag tag-p">TikTok Para Ti</span>
+<span class="tag tag-p">Instagram Reels</span>
+<span class="tag tag-g">Fans activos</span>
+<span class="tag tag-b">Posibles fans</span>`
+},
+
+prescripcion:{
+  icon:'📡',phase:'FASE 1 · Mes 3–12',phaseClass:'badge-f1',
+  title:'Prescripción Orgánica · El club como fuente de confianza',
+  body:`El contenido que el club crea y publica tiene un valor de prescripción que ningún espacio publicitario convencional puede igualar. El fan confía en el canal del Madrid. Esa confianza tiene precio.
+<br><br>
+Paravium ayuda a <strong>integrar mensajes de sponsors dentro del contenido orgánico del club</strong> de forma natural, en los momentos y contextos en que resultan más relevantes para el fan. El sponsor no interrumpe — acompaña. El mensaje viaja dentro de contenido que el fan ya busca y consume.
+<br><br>
+<strong>Disciplina clave:</strong> Paravium gestiona la frecuencia con precisión para que el fan nunca perciba que el canal se ha vuelto publicitario. La prescripción se protege limitando los mensajes de sponsors a los momentos donde resultan más naturales. Esa disciplina es lo que hace sostenible el modelo.
+<br><br>
+Ese contenido —orgánico, con prescripción— es luego <strong>distribuido a través del Para Ti</strong> hacia audiencias identificadas por el DMP: fans del Madrid que no han visto ese contenido, posibles fans con perfil afín, o seguidores del propio sponsor con alta afinidad Madridista.
+<br><br>
+<span class="tag tag-g">Alta prescripción</span>
+<span class="tag tag-g">Contenido nativo</span>
+<span class="tag tag-o">Sin saturación</span>
+<span class="tag tag-p">El club cobra como influencer</span>
+<br><br>
+<strong>Habilitadores necesarios:</strong> dashboard de visibilidad para el club, guardrails de frecuencia acordados, protocolo de aprobación ágil, coordinación con el área de partnerships.`
+},
+
+jugadores:{
+  icon:'⚽',phase:'EXTENSIÓN · On demand',phaseClass:'badge-ext',
+  title:'Ecosistema de Jugadores · Add-on opcional',
+  body:`<em>Este módulo no forma parte del Core ni es necesario para que el ecosistema funcione. Es una puerta abierta que el club puede activar cuando lo considere oportuno.</em>
+<br><br>
+Si el Real Madrid lo decide, <strong>podría invitar a sus jugadores a formar parte del ecosistema</strong> de forma completamente voluntaria. El club les ofrecería algo que ningún influencer individual puede tener: acceso al DMP — el análisis de audiencia más potente del sector.
+<br><br>
+El jugador solo sabe cuántos seguidores tiene. El club sabe quiénes son, qué quieren y qué valor publicitario tienen. Eso hace del sistema un activo de datos muy difícil de rechazar para cualquier jugador que quiera monetizar su presencia digital de forma inteligente.
+<br><br>
+<strong>Lo que aportaría cada parte:</strong><br>
+— Club: inteligencia de datos + capacidad de distribución (DMP + Para Ti)<br>
+— Jugador: audiencia + figura + contenido
+<br><br>
+<strong>Sin fecha de caducidad:</strong> un jugador retirado o que ficha por otro club sigue teniendo fans del Madrid entre sus seguidores. Puede seguir en la red si quiere — el DMP del Madrid sigue siendo el mejor activo para gestionar esa audiencia.
+<br><br>
+<span class="tag tag-b">Activos en plantilla</span>
+<span class="tag tag-p">Jugadores retirados</span>
+<span class="tag tag-o">Ex-jugadores en otros clubs</span>
+<br><br>
+<em>Requiere negociaciones individuales con complejidad legal/contractual propia. Se activa cuando el Core esté operativo y el momento sea el adecuado.</em>`
+},
+
+ssp:{
+  icon:'🏷️',phase:'FASE 2 · Mes 12–24',phaseClass:'badge-f2',
+  title:'SSP · Los canales propios del Madrid como taquilla digital',
+  body:`El <strong>SSP (Supply-Side Platform)</strong> convierte los canales digitales del Madrid — app, web, canal de vídeo, newsletter — en inventario publicitario que el club <strong>vende directamente</strong>, sin ceder margen a intermediarios.
+<br><br>
+<strong>¿Cómo funciona el RTB en tiempo real?</strong><br>
+Cuando el fan abre la app, en milisegundos el SSP comunica al mercado global: "Tengo un espacio disponible ahora mismo, lo está viendo este perfil de fan". Múltiples anunciantes pujan. El más alto gana. El anuncio aparece. Todo antes de que la pantalla termine de cargarse.
+<br><br>
+El DMP hace que estos espacios valgan más. No se vende "espacio en una app de fútbol". Se vende <strong>espacio verificado frente a un Madridista de 32 años con alto poder adquisitivo e interés en viajes</strong>. Ese espacio vale varias veces más.
+<br><br>
+<span class="tag tag-o">App del Madrid</span>
+<span class="tag tag-o">Web oficial</span>
+<span class="tag tag-o">Canal de vídeo</span>
+<span class="tag tag-o">Newsletter</span>
+<br><br>
+<strong>Habilitadores necesarios:</strong> SDK en la app, tags en la web, headers de prebid en el player de vídeo. Requiere trabajo de ingeniería con el equipo de producto del club.`
+},
+
+exportacion:{
+  icon:'🌐',phase:'EXTENSIÓN · Desde Fase 2',phaseClass:'badge-ext',
+  title:'Exportación Programática Global · Fans del Madrid en cualquier web del mundo',
+  body:`Este es el salto más valioso del ecosistema a escala. Los segmentos del DMP no solo sirven para espacios propios del Madrid — se <strong>exportan al ecosistema publicitario mundial</strong>.
+<br><br>
+El club conoce a millones de fans de forma anónima: sus dispositivos, sus patrones, sus intereses. Sabe que esa persona también lee periódicos, usa YouTube, entra en portales de viajes, ve streaming. A través de integraciones técnicas, los segmentos del DMP se conectan con los sistemas donde los anunciantes globales compran publicidad.
+<br><br>
+Un anunciante en Tokio puede comprar acceso al perfil "Madridista joven con interés en tecnología" y lanzar su campaña mientras esa persona lee el New York Times. <strong>El Madrid no controla ese espacio — pero ha alquilado su conocimiento de audiencia.</strong>
+<br><br>
+<span class="tag tag-g">LiveRamp</span>
+<span class="tag tag-g">Google DV360</span>
+<span class="tag tag-g">The Trade Desk</span>
+<span class="tag tag-g">Amazon DSP</span>
+<br><br>
+<strong>Modelos de ingreso:</strong><br>
+— Data licensing: fee por acceso al segmento<br>
+— Revenue share: parte del presupuesto que el anunciante gasta en terceros usando datos del Madrid revierte al club<br><br>
+<em>Requiere SSP operativo + volumen suficiente de segmentos. Activable a partir de Fase 2.</em>`
+},
+
+modeloA:{
+  icon:'🤝',phase:'',phaseClass:'',
+  title:'Modelo A · Sponsor directo · Sin intermediarios',
+  body:`El Madrid vende directamente al anunciante. Sin plataforma que se lleve margen.
+<br><br>
+<strong>El sponsor paga por tres tipos de acceso simultáneo:</strong><br><br>
+1. <strong>Visibilidad en canales propios</strong> del Madrid (app, web, estadio digital)<br>
+2. <strong>Distribución de mensajes a través del Para Ti</strong> hacia audiencias afines identificadas por el DMP — incluidas audiencias cruzadas entre fans del Madrid y seguidores del propio sponsor<br>
+3. <strong>Acceso a los segmentos del DMP</strong> para campañas externas en el ecosistema programático global
+<br><br>
+Este modelo es especialmente valioso para marcas que quieren una <strong>asociación real con el Madrid</strong> — no solo visibilidad, sino acceso al vínculo emocional que el fan tiene con su club.
+<br><br>
+<span class="tag tag-r">Sin intermediarios</span>
+<span class="tag tag-g">Máximo margen</span>
+<span class="tag tag-p">Alta prescripción</span>
+<span class="tag tag-b">Audiencias cruzadas</span>`
+},
+
+modeloB:{
+  icon:'📊',phase:'',phaseClass:'',
+  title:'Modelo B · RTB Global · Cualquier anunciante del mundo',
+  body:`El modelo más escalable. <strong>Cualquier anunciante en cualquier parte del mundo</strong> puede llegar a los Madridistas sin negociar directamente con el club.
+<br><br>
+Los segmentos del DMP están disponibles en los grandes mercados programáticos. Un anunciante en São Paulo puede comprar acceso al perfil "Madridista latinoamericano, mujer, 18–25, interesada en lifestyle" y lanzar su campaña donde esa persona navegue.
+<br><br>
+<div class="m-metric">
+  <div class="metric-item"><div class="metric-val">Data licensing</div><div class="metric-lbl">Fee por segmento</div></div>
+  <div class="metric-item"><div class="metric-val">Revenue share</div><div class="metric-lbl">% sobre gasto en terceros</div></div>
+</div>
+El activo se revaloriza solo: cuanto más potente es el DMP, más valen los segmentos; cuanto más valen los segmentos, más atractivo es el sistema para el siguiente anunciante.`
+},
+
+transversal:{
+  icon:'🔴',phase:'',phaseClass:'',
+  title:'Capa Transversal · El sistema inmunológico del ecosistema',
+  body:`Mientras los bloques verticales generan ingresos, la Capa Transversal <strong>protege la base</strong>. Opera silenciosamente a lo largo de todo el ecosistema — desde el DMP (donde lee los datos) hasta los Fans (donde actúa).
+<br><br>
+<div class="m-metric">
+  <div class="metric-item"><div class="metric-val">37%</div><div class="metric-lbl">Churn actual (estimado)</div></div>
+  <div class="metric-item"><div class="metric-val">→ 15%</div><div class="metric-lbl">Objetivo</div></div>
+</div>
+<strong>Cómo opera:</strong> predice qué fans van a cancelar antes de que lo hagan, entiende por qué, optimiza los cobros para reducir las bajas involuntarias, y cuando la baja es voluntaria, interviene con una oferta personalizada calibrada por el valor de ese fan.
+<br><br>
+<strong>Las dimensiones 1 y 2 arrancan en el Piloto.</strong> Las dimensiones 3–5 se activan progresivamente conforme el Core madura.
+<br><br>
+<em>Pulsa cada dimensión para ver el detalle.</em>`
+},
+
+dim1:{
+  icon:'🔮',phase:'EN PILOTO',phaseClass:'badge-piloto',
+  title:'Dimensión 1 · Predicción de Churn',
+  body:`Modelo de Machine Learning que <strong>predice cancelaciones 15–21 días antes</strong> de que ocurran. Esa ventana de tiempo es suficiente para intervenir con eficacia.
+<br><br>
+<strong>¿Cómo funciona?</strong><br>
+El modelo analiza señales de comportamiento que preceden históricamente a las cancelaciones: reducción de frecuencia de uso, cambios en el patrón de interacción, fatiga de contenido, señales de precio. Cuando un socio entra en zona de riesgo, el sistema lo marca y activa el protocolo de intervención.
+<br><br>
+<strong>Input:</strong> historial de ciclo de vida del socio (altas, bajas, cobros, comportamiento en app).<br>
+<strong>Output:</strong> score de riesgo por socio, actualizado continuamente.
+<br><br>
+<em>Arranque en Piloto. Requiere acceso a datos de ciclo de vida del socio Madridista.</em>`
+},
+
+dim2:{
+  icon:'🔍',phase:'EN PILOTO',phaseClass:'badge-piloto',
+  title:'Dimensión 2 · Diagnóstico de Causas',
+  body:`Entender <strong>por qué se va un fan</strong> es tan importante como saber que se va a ir. El diagnóstico de causas identifica el motivo raíz detrás de cada intención de baja.
+<br><br>
+<strong>Causas que el sistema identifica:</strong><br>
+— Precio: la relación coste-valor percibida se ha deteriorado<br>
+— Contenido: el fan ha dejado de encontrar lo que busca<br>
+— Inactividad: el fan ha dejado de interactuar y la relación se ha enfriado<br>
+— Fatiga: exceso de impactos o comunicaciones
+<br><br>
+El diagnóstico determina qué tipo de intervención tiene sentido para ese fan en concreto. No todas las bajas se retienen igual.
+<br><br>
+<em>Opera en paralelo con la Dimensión 1 desde el arranque del Piloto.</em>`
+},
+
+dim3:{
+  icon:'💳',phase:'ACTIVACIÓN PROGRESIVA',phaseClass:'badge-ext',
+  title:'Dimensión 3 · Optimización de Cobro',
+  body:`Una parte significativa de las bajas no son voluntarias — son el resultado de <strong>cobros fallidos</strong> que no se gestionan correctamente.
+<br><br>
+<strong>Smart retry:</strong> el sistema aprende cuándo y cómo reintentar un cobro fallido para maximizar la tasa de éxito. No todos los reintentos son iguales: el momento del día, el día del mes, y el estado del fan influyen en la probabilidad de cobro exitoso.
+<br><br>
+<strong>Gestión inteligente de dunning:</strong> las comunicaciones por cobro pendiente se calibran para recuperar el pago sin deteriorar la relación con el socio.
+<br><br>
+<em>Requiere integración técnica con la pasarela de cobros del club.</em>`
+},
+
+dim4:{
+  icon:'🎯',phase:'ACTIVACIÓN PROGRESIVA',phaseClass:'badge-ext',
+  title:'Dimensión 4 · Intervención Personalizada',
+  body:`Cuando el sistema detecta un socio en riesgo de baja (Dimensión 1) y ha identificado el motivo (Dimensión 2), activa una <strong>intervención personalizada</strong> calibrada para ese perfil.
+<br><br>
+<strong>Principios de la intervención:</strong><br>
+— El mensaje, el canal y el momento se eligen en función del perfil del fan<br>
+— La oferta de retención se calibra por el CLV del socio (Dimensión 5): no se invierte lo mismo en retener a un socio de alto valor que a uno de bajo engagement<br>
+— Las intervenciones se pre-aprueban en un protocolo acordado con el club — Paravium no actúa sin guardrails definidos
+<br><br>
+<em>Mismo modelo de dashboard + guardrails que en redes sociales: visibilidad total para el club, agilidad para actuar.</em>`
+},
+
+dim5:{
+  icon:'📈',phase:'ACTIVACIÓN PROGRESIVA',phaseClass:'badge-ext',
+  title:'Dimensión 5 · CLV Scoring',
+  body:`El <strong>Customer Lifetime Value (CLV)</strong> por fan responde a una pregunta clave: <em>¿cuánto vale este socio para el club a lo largo del tiempo?</em> Y, por extensión: ¿cuánto tiene sentido invertir en retenerle?
+<br><br>
+<strong>El CLV integra:</strong><br>
+— Ingresos directos: cuota, compras en tienda, entradas, merchandising<br>
+— Valor indirecto: alcance en redes, engagement, capacidad de prescripción<br>
+— Probabilidad de churn y coste de adquisición del sustituto
+<br><br>
+Con el CLV scoring, el ecosistema deja de tratar a todos los socios igual. Los recursos de retención se concentran donde generan más retorno.
+<br><br>
+<em>Se activa cuando el DMP tiene volumen suficiente de datos históricos para calcular el CLV con precisión.</em>`
+},
+
+gamificada:{
+  icon:'🎮',phase:'HORIZONTE 24–36 MESES',phaseClass:'badge-ext',
+  title:'Comunidad Gamificada · El amplificador definitivo',
+  body:`La Comunidad Gamificada es el amplificador del ecosistema. <strong>Convierte la relación fan-club en una experiencia diaria</strong> con mecánicas de juego que generan datos, engagement y fidelización continua.
+<br><br>
+<strong>Mecánicas:</strong><br>
+— Misiones y logros por comportamiento (ver un partido, visitar el estadio, comprar en la tienda)<br>
+— Coleccionables digitales ligados a momentos del club<br>
+— Logros por geolocalización (estilo Pokémon Go) cerca del Bernabéu o en viajes del club<br>
+— Rankings y comunidades entre fans<br>
+— Recompensas por interacción
+<br><br>
+<strong>Por qué es el amplificador:</strong> cada acción del fan dentro de la comunidad genera datos que alimentan el DMP, que personaliza mejor la experiencia, que genera más interacción. Es un <strong>loop de retroalimentación positiva</strong>.
+<br><br>
+<div class="m-metric">
+  <div class="metric-item"><div class="metric-val">×2x</div><div class="metric-lbl">Base activa estimada</div></div>
+  <div class="metric-item"><div class="metric-val">Daily</div><div class="metric-lbl">Engagement (vs. solo días de partido)</div></div>
+</div>
+<em>Requiere un ecosistema ya funcionando con fans activos. No tiene sentido gamificar una base que no existe todavía.</em>`
+},
+
+};
+
+// Piloto nodes
+const PILOTO_NODES = ['n-escucha','n-dmp','n-parati'];
+
+function togglePiloto(){
+  const btn = document.getElementById('pilotoToggle');
+  const banner = document.getElementById('pilotoBanner');
+  const isActive = btn.classList.toggle('active');
+  banner.classList.toggle('active', isActive);
+  btn.innerHTML = isActive
+    ? '<div class="piloto-dot"></div>★ Piloto 90 días ACTIVO'
+    : '<div class="piloto-dot"></div>★ Activar modo Piloto 90 días';
+  PILOTO_NODES.forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.classList.toggle('piloto-glow', isActive);
+  });
+  if(isActive) openModal('piloto90');
+}
+
+// Estadio Infinito nodes
+const EI_NODES = ['n-dmp','n-parati','n-prescripcion','n-ssp'];
+
+function toggleEI(){
+  const btn = document.getElementById('eiToggle');
+  const banner = document.getElementById('eiBanner');
+  const isActive = btn.classList.toggle('active');
+  banner.classList.toggle('active', isActive);
+  btn.innerHTML = isActive
+    ? '<div class="ei-dot" id="eiDot"></div>⚡ Estadio Infinito ACTIVO'
+    : '<div class="ei-dot" id="eiDot"></div>⚡ Activar modo Estadio Infinito';
+  EI_NODES.forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.classList.toggle('ei-glow', isActive);
+  });
+  if(isActive) openModal('ei');
+}
+
+function openModal(key){
+  if(!D[key]) return;
+  const d = D[key];
+  document.getElementById('mIcon').textContent = d.icon;
+  const ph = document.getElementById('mPhase');
+  if(d.phase){
+    ph.innerHTML = `<span class="badge ${d.phaseClass}" style="position:static;display:inline-block;margin-bottom:12px">${d.phase}</span>`;
+  } else {
+    ph.innerHTML = '';
+  }
+  document.getElementById('mTitle').textContent = d.title;
+  document.getElementById('mBody').innerHTML = d.body;
+  document.getElementById('overlay').classList.add('on');
+}
+
+// Piloto 90 días modal
+D['piloto90'] = {
+  icon:'★',phase:'PILOTO · Mes 0–3',phaseClass:'badge-piloto',
+  title:'Piloto 90 Días · El punto de arranque del ecosistema',
+  body:`En tres meses, Paravium enciende el motor. El Piloto activa simultáneamente los tres primeros eslabones del Core y entrega los primeros resultados medibles antes de comprometer recursos adicionales.
+<br><br>
+<div class="m-metric">
+  <div class="metric-item"><div class="metric-val">0€</div><div class="metric-lbl">Coste para el club</div></div>
+  <div class="metric-item"><div class="metric-val">~20M</div><div class="metric-lbl">Perfiles accionables</div></div>
+  <div class="metric-item"><div class="metric-val">~574K€</div><div class="metric-lbl">Estimado/trimestre</div></div>
+</div>
+<strong>Qué se enciende en el Piloto:</strong><br><br>
+<span class="tag tag-b">🎧 Escucha Activa</span> Paravium rastrea en tiempo real el universo del club — redes sociales, medios, foros — y construye la primera capa de inteligencia de audiencia.<br><br>
+<span class="tag tag-b">🧠 DMP v1</span> Primera versión del cerebro, construida sobre la base de Madridistas enriquecida con señales de EA Sports FC. Genera los primeros segmentos accionables en semanas.<br><br>
+<span class="tag tag-p">📱 Para Ti</span> Primera activación real en TikTok e Instagram. El algoritmo distribuye mensajes a fans y posibles fans con los perfiles identificados por el DMP v1.<br><br>
+<span class="tag tag-r">🔴 Capa Transversal dim. 1–2</span> En paralelo, el modelo predictivo de churn arranca con los datos de ciclo de vida del socio Madridista.
+<br><br>
+<strong>Modelo comercial:</strong> revenue share desde el día uno. El club no pone capital — Paravium invierte en la puesta en marcha y recupera su inversión a través del reparto de los ingresos generados. Si el piloto no genera valor medible, no hay reparto.
+<br><br>
+<strong>Al final del Piloto el club tiene:</strong> una base de datos viva de ~20M perfiles accionables, conversiones medibles desde el primer mes, un modelo de churn operativo y evidencia concreta de que el ecosistema funciona antes de escalar a Fase 1.`
+};
+
+// Estadio Infinito modal
+D['ei'] = {
+  icon:'⚡',phase:'',phaseClass:'',
+  title:'Estadio Infinito · El ecosistema en su momento de máximo rendimiento',
+  body:`Estadio Infinito no es un módulo nuevo — es el <strong>ecosistema Core operando a máxima potencia</strong> durante los partidos. Cuando hay partido, todo el sistema se enciende simultáneamente.
+<br><br>
+<div class="m-metric">
+  <div class="metric-item"><div class="metric-val">27</div><div class="metric-lbl">Partidos en casa/temporada</div></div>
+  <div class="metric-item"><div class="metric-val">~10,4M€</div><div class="metric-lbl">Impacto estimado/año</div></div>
+</div>
+<strong>Lo que ocurre durante un partido:</strong><br>
+— El DMP entra en modo tiempo real: sabe quién está en el Bernabéu, quién sigue desde la app, qué emoción domina tras cada jugada<br>
+— El SSP convierte la app en una taquilla digital: merchandising, F&B, upgrades de asiento, micropagos contextuales<br>
+— El contenido del club se distribuye con máxima prescripción en el momento de receptividad emocional más alta
+<br><br>
+<strong>El fan que acaba de ver un gol tiene la receptividad emocional más alta del año.</strong> El sistema lo detecta y le ofrece lo que quiere en ese momento exacto. In-stadium y out-of-stadium simultáneamente.
+<br><br>
+<strong>Por qué es extensión y no Core:</strong><br>
+Requiere infraestructura de producto en la app (push contextual, micropagos, catálogo digital) que depende de movilización por parte del club. El Core funciona perfectamente sin Estadio Infinito. EI es el acelerador.
+<br><br>
+<span class="tag tag-y">Opción A: tras Fase 2 (conservadora)</span>
+<span class="tag tag-o">Opción B: sept. 26 (agresiva)</span>
+<span class="tag tag-g">Opción C: enero 27 (pragmática)</span>`
+};
+
+function closeModal(){
+  document.getElementById('overlay').classList.remove('on');
+}
+function closeOutside(e){
+  if(e.target === document.getElementById('overlay')) closeModal();
+}
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
+</script>
+</body>
+</html>
